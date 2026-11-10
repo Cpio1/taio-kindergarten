@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+/* Сайт әрқашан ашық түсте: dark-вариант тек data-attribute арқылы ғана (ешқашан қосылмайды) */
+@custom-variant dark (&:where([data-theme="never-dark"], [data-theme="never-dark"] *));
+
+@theme {
+  --color-sky: #bde8f6;
+  --color-sky-soft: #e6f6fc;
+  --color-sky-deep: #2a7aa6;
+  --color-sky-darker: #1f6189;
+  --color-mint: #cdedd8;
+  --color-mint-soft: #eaf7ef;
+  --color-mint-deep: #2b7f53;
+  --color-butter: #ffe6ae;
+  --color-butter-soft: #fff5dc;
+  --color-butter-deep: #b7791f;
+  --color-ink: #263548;
+  --color-ink-soft: #55657c;
+  --color-line: #e3edf3;
+
+  --font-sans: var(--font-nunito), ui-rounded, system-ui, sans-serif;
+  --font-display: var(--font-nunito), ui-rounded, system-ui, sans-serif;
+
+  --shadow-soft: 0 10px 30px -14px rgb(38 53 72 / 0.18);
+  --shadow-lift: 0 22px 44px -20px rgb(38 53 72 / 0.28);
+
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 11s ease-in-out infinite;
+  --animate-drift: drift 18s ease-in-out infinite;
+  --animate-twinkle: twinkle 3.2s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-10px) rotate(4deg);
+    }
+  }
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(18px);
+    }
+  }
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.55;
+      transform: scale(0.85);
+    }
+  }
+}
+
+@layer base {
+  :root {
+    color-scheme: light only;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+    background: #ffffff;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    font-weight: 800;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-butter);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-sky-deep);
+    outline-offset: 3px;
+    border-radius: 0.6rem;
+  }
+}
+
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.875rem;
+  border-radius: 9999px;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.2;
+  transition:
+    transform 250ms ease-out,
+    box-shadow 250ms ease-out,
+    background-color 250ms ease-out,
+    border-color 250ms ease-out;
+}
+@utility btn-primary {
+  @apply btn bg-sky-deep text-white shadow-soft hover:-translate-y-0.5 hover:bg-sky-darker hover:shadow-lift;
+}
+@utility btn-whatsapp {
+  @apply btn bg-mint-deep text-white shadow-soft hover:-translate-y-0.5 hover:bg-[#226a45] hover:shadow-lift;
+}
+@utility btn-ghost {
+  @apply btn border-2 border-sky bg-white text-ink hover:-translate-y-0.5 hover:border-sky-deep/50 hover:bg-sky-soft;
+}
+
+@utility kicker {
+  @apply inline-flex items-center gap-2 rounded-full bg-sky-soft px-3.5 py-1.5 text-[0.8rem] font-bold tracking-wide text-sky-darker uppercase;
+}
+
+@utility section-title {
+  @apply mt-3 text-[1.75rem] leading-tight font-bold text-ink sm:text-4xl;
+}
+
+@utility card {
+  @apply rounded-[1.75rem] border border-line bg-white shadow-soft;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
